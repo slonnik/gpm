@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: es-svc
+spec:
+  type: NodePort
+  ports:
+    - port: 9200
+      nodePort: 30004
+      targetPort: 9200
+      protocol: TCP
+  selector:
+    app: elk
