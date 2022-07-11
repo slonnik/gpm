@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elk-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elk
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: elk
+    spec:
+      containers:
+        - name: elk
+          image: sebp/elk:latest
+          imagePullPolicy: Never
+          ports:
+          - containerPort: 5601
+          - containerPort: 9200
+          - containerPort: 5044
